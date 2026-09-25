@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harke Bahadur AI - Ultimate Meme & Satire Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #080c14; color: #e2e8f0; }
+        .harke-gradient { background: linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .harke-bg-gradient { background: linear-gradient(135deg, rgba(245,158,11,0.18) 0%, rgba(236,72,153,0.18) 50%, rgba(139,92,246,0.18) 100%); }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-ticker { display: flex; width: 200%; animation: ticker 30s linear infinite; }
+        .animate-ticker:hover { animation-play-state: paused; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="glass-panel px-6 py-3 flex items-center justify-between z-10 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl harke-bg-gradient flex items-center justify-center border border-amber-500/30">
+                <i class="fa-solid fa-hat-cowboy text-amber-400"></i>
+            </div>
+            <span class="text-xl font-bold tracking-tight">Harke <span class="harke-gradient">Bahadur AI</span> <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">Meme Brainrot v10.0</span></span>
+        </div>
+
+        <!-- Scrolling Ticker Bar -->
+        <div class="hidden md:flex items-center space-x-3 bg-slate-900/90 px-4 py-1.5 rounded-full border border-slate-800 text-xs max-w-xl overflow-hidden relative">
+            <span class="flex h-2 w-2 relative flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            <span class="text-amber-400 font-bold uppercase tracking-wider text-[10px] flex-shrink-0">GLOBAL MEME WIRE:</span>
+            <div class="overflow-hidden whitespace-nowrap w-full">
+                <div class="animate-ticker text-slate-300 italic text-xs space-x-8" id="ticker-content">
+                    <!-- Dynamic Ticker Items -->
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 transition border border-slate-700/50">
+                <i class="fa-solid fa-rotate-left mr-1"></i> Reset Chat
+            </button>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 to-pink-600 flex items-center justify-center font-bold text-xs ring-2 ring-amber-500/20">
+                YOU
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex flex-1 overflow-hidden relative">
+
+        <!-- Sidebar (Political & Meme Feed) -->
+        <aside class="w-80 glass-panel hidden lg:flex flex-col border-r border-slate-800/80 p-4 space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-fire text-amber-400 text-sm"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Viral Meme & News Khabar</span>
+                </div>
+                <span class="bg-amber-950 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-800/60">LIVE</span>
+            </div>
+
+            <!-- News Feed -->
+            <div id="goofy-news-feed" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1">
+                <!-- Dynamically Inserted -->
+            </div>
+
+            <!-- Status Box -->
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-2">
+                <div class="flex justify-between items-center text-slate-400">
+                    <span class="font-medium text-[11px]">Nepal Meme Database:</span>
+                    <span class="text-amber-400 font-mono font-extrabold text-xs">MAX CAPACITY</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400">
+                    <span class="font-medium text-[11px]">Indian & Global Brainrot:</span>
+                    <span class="text-emerald-400 font-mono font-extrabold text-xs">100% UNLOCKED</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-500 via-pink-500 to-purple-500 h-full w-[100%]"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="flex-1 flex flex-col h-full bg-slate-950/60 relative">
+            
+            <div id="chat-container" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar">
+                
+                <!-- Welcome Screen -->
+                <div id="welcome-screen" class="max-w-2xl mx-auto text-center py-10 space-y-6">
+                    <div class="w-16 h-16 rounded-2xl harke-bg-gradient border border-amber-500/40 flex items-center justify-center mx-auto shadow-xl shadow-amber-500/10">
+                        <i class="fa-solid fa-hat-cowboy text-3xl text-amber-400"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                        Namaste! I am <span class="harke-gradient">Harke Bahadur AI</span>.
+                    </h1>
+                    <p class="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed">
+                        Loaded with Nepal political memes, Indian brainrot, and global internet lore. Ask anything for a accurate, informative answer with maximum sarcasm!
+                    </p>
+
+                    <!-- Quick Prompts -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-left">
+                        <button onclick="usePrompt('Will KP Oli distribute free induction cooktops if he wins the election?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-amber-400 font-bold uppercase tracking-wider mb-1">Induction Cooktop Promise</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Will KP Oli give induction cooktops if he wins?"</div>
+                        </button>
+                        <button onclick="usePrompt('How is Harka Sampang managing water in Dharan with his shovels?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-pink-400 font-bold uppercase tracking-wider mb-1">Dharan Shramdaan</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"How is Harka Sampang managing Dharan water?"</div>
+                        </button>
+                        <button onclick="usePrompt('Explain how to stay calm during exams like a Chill Guy')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-blue-400 font-bold uppercase tracking-wider mb-1">Indian & Global Memes</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Explain how to stay calm like a Chill Guy."</div>
+                        </button>
+                        <button onclick="usePrompt('How can I clear Lok Sewa or should I just buy a ticket to Qatar?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider mb-1">Lok Sewa vs. TIA Gate 3</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Lok Sewa preparation vs. Qatar flight ticket?"</div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Input Anchor -->
+            <div class="p-4 md:p-6 glass-panel border-t border-slate-800">
+                <div class="max-w-3xl mx-auto space-y-2">
+                    
+                    <form id="chat-form" onsubmit="handleSend(event)" class="relative flex items-center">
+                        <textarea 
+                            id="user-input" 
+                            rows="1" 
+                            placeholder="Ask Harke Bahadur about politics, coding, exams, or memes..." 
+                            class="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 rounded-2xl pl-4 pr-12 py-3.5 border border-slate-700/70 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 resize-none custom-scrollbar text-xs md:text-sm"
+                            onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); handleSend(event); }"></textarea>
+                        
+                        <button type="submit" id="send-btn" class="absolute right-2.5 p-2 rounded-xl bg-gradient-to-r from-amber-500 to-pink-600 text-white hover:opacity-90 transition shadow-lg shadow-amber-600/20">
+                            <i class="fa-solid fa-paper-plane-top text-xs"></i>
+                        </button>
+                    </form>
+
+                    <div class="flex justify-between items-center text-[10px] text-slate-500 px-2">
+                        <span>Harke Bahadur AI evaluates prompts with 100% accurate context & global meme lore.</span>
+                        <span class="hidden sm:inline">Press Shift + Enter for newline</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Curated Global Meme GIFs Database
+        const memeGifs = [
+            "https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif", // Smart Thinker / Roll Safe
+            "https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif", // Mind Blown
+            "https://media.giphy.com/media/26AHPxxnSw1L9T1rW/giphy.gif", // Sarcastic Laugh
+            "https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif", // Popcorn Eating
+            "https://media.giphy.com/media/3o72F8t9TDi2xVnxOE/giphy.gif", // Confused Ryan
+            "https://media.giphy.com/media/QMHoU66sBXCAU/giphy.gif"     // This is Fine Dog
+        ];
+
+        // Goofy News Feed Database
+        const goofyNewsList = [
+            {
+                tag: "KP OLI NAVY",
+                headline: "KP Oli promises 500-seater cruise ship ticket for Bagmati river starting next Dashain",
+                source: "Uml Gossip Network",
+                comment: "The river currently has 2 inches of water, but Oli assures us the water vapor will support the ship's buoyancy."
+            },
+            {
+                tag: "HARKA SAMPANG",
+                headline: "Harka Sampang carries 5,000 shovels to Kathmandu; offers to dig new Bagmati channel by hand in 3 days",
+                source: "Dharan Satire",
+                comment: "While politicians argue in parliament, Harka has already carried 400 tons of stones on his back before breakfast."
+            },
+            {
+                tag: "DEUBA ASTROLOGY",
+                headline: "Astrologer confirms Sher Bahadur Deuba will become Prime Minister for 7th, 8th, and 9th term by age 95",
+                source: "Jyotish Khabar",
+                comment: "Deuba's horoscope has a permanent administrative lock on the PM chair regardless of election results."
+            },
+            {
+                tag: "BIHAR MYSTERY",
+                headline: "Entire 50-foot steel bridge dismantled and stolen overnight in Bihar by thieves disguised as PWD officers",
+                source: "Patna News",
+                comment: "You have to admire the structural engineering precision required to steal a whole bridge before sunrise."
+            },
+            {
+                tag: "GENZ MOVEMENT",
+                headline: "GenZ protesters in Kathmandu organize nation-wide rally using Discord voice channels & Minecraft servers",
+                source: "Youth Wire",
+                comment: "Older politicians were tracking physical banners while the entire movement was coordinated on gaming servers."
+            }
+        ];
+
+        // ACCURATE CONTEXTUAL RESPONSE ENGINE
+        function getSmartAnswer(query) {
+            const q = query.toLowerCase();
+
+            // 1. KP OLI + INDUCTION / STOVE / GAS
+            if ((q.includes("oli") || q.includes("kp")) && (q.includes("induction") || q.includes("stove") || q.includes("cooker") || q.includes("gas") || q.includes("heater"))) {
+                return "**KP Oli & The Famous Induction Stove Promise**: During CPN-UML campaigns, KP Oli famously declared that every household in Nepal would receive free or subsidized induction cooktops to eliminate dependency on Indian LP gas cylinders. **The Reality?** While NEA electricity generation increased under Kulman Ghising, the free induction distribution remained a viral political meme. *Meme Wisdom:* 'Jor Jor Se Bolke Sabko Scheme Batade!' Make sure your home wiring can handle 15 Amps before waiting for Oli Baa's free stove!";
+            }
+
+            // 2. KP OLI + WATER SHIP / BAGMATI / RAILWAY
+            if ((q.includes("oli") || q.includes("kp")) && (q.includes("ship") || q.includes("boat") || q.includes("bagmati") || q.includes("waterway") || q.includes("railway"))) {
+                return "**KP Oli's Water Ships & Bagmati Navy**: KP Oli famously envisioned Nepalese cargo ships flying the national flag on international seas via Indian river connections. A 'Waterways Office' was actually established in Lalitpur, but running cruise ships in Bagmati remains a classic *'Chin Tapak Dam Dam'* moment of Nepalese political fantasy!";
+            }
+
+            // 3. HARKA SAMPANG / DHARAN / WATER / SHOVEL
+            if (q.includes("hark") || q.includes("sampang") || q.includes("dharan") || q.includes("shovel") || q.includes("water") || q.includes("pipe")) {
+                return "**Harka Sampang & Dharan Shramdaan**: Dharan Mayor Harka Sampang revolutionized local governance by bypassing slow government tenders and physically carrying water pipes on his shoulders alongside thousands of volunteers. While Kathmandu politicians sit in AC rooms doing *Chiya Guff*, Harka grabs a shovel, streams live on Facebook, and gets clean water flowing from Kokaha river!";
+            }
+
+            // 4. BALEN SHAH / KATHMANDU / AURA / STREET VENDORS
+            if (q.includes("balen") || q.includes("shah") || q.includes("kathmandu") || q.includes("sunglasses") || q.includes("dozer") || q.includes("aura")) {
+                return "**Balen Shah & Black Sunglasses Aura**: Balen Shah brought rapper-style direct action to Kathmandu Metropolitan City—using dozers on illegal basements, clearing footpath encroachments, and posting sharp Facebook updates. *GigaChad Energy:* He doesn't hold press conferences; he just posts a status update and lets the internet do the rest!";
+            }
+
+            // 5. CHILL GUY / MEME CULTURE / EXAMS
+            if (q.includes("chill guy") || q.includes("chill") || q.includes("calm") || q.includes("exam") || q.includes("stress")) {
+                return "**The Chill Guy Approach to Life**: Just like the iconic 'Chill Guy' meme (the relaxed dog in a sweater), the secret to surviving Lok Sewa, NEB board exams, or Kalanki traffic jams is absolute unbothered composure. As the Indian meme goes: *'Juice Pila Do, Mood Off Hai'*. Panicking won't fix your GPA, but staying calm like a GigaChad will!";
+            }
+
+            // 6. GEN Z / PROTESTS / DISCORD / REVOLUTION
+            if (q.includes("genz") || q.includes("gen-z") || q.includes("protest") || q.includes("youth") || q.includes("revolution")) {
+                return "**GenZ Protests & Youth Disillusionment**: Nepal's youth are tired of seeing their peers stand in line at TIA Gate No. 3 for Gulf labor visas while recycled politicians swap PM chairs. Using Discord servers, TikTok algorithms, and decentralized networks, GenZ is demanding transparency, digital governance, and meritocracy!";
+            }
+
+            // 7. LOK SEWA vs. QATAR / FOREIGN EMPLOYMENT
+            if (q.includes("lok sewa") || q.includes("qatar") || q.includes("dubai") || q.includes("visa") || q.includes("airport") || q.includes("gate 3")) {
+                return "**Lok Sewa Preparation vs. TIA Gate No. 3**: The ultimate Nepalese youth dilemma: spend 3 years memorizing Lok Sewa GK books for an officer seat, or buy a flight ticket to Qatar/Dubai. *Hard Truth:* Lok Sewa requires consistent past-paper practice and subjective writing skills. Buying 10 guidebooks and keeping them on your desk won't transfer knowledge via osmosis!";
+            }
+
+            // 8. DEUBA / PRACHANDA / COALITION / PM CHAIR
+            if (q.includes("deuba") || q.includes("prachanda") || q.includes("congress") || q.includes("maoist") || q.includes("astrologer")) {
+                return "**Deuba, Prachanda & Coalition Musical Chairs**: Sher Bahadur Deuba relies on his astrologer's prediction that he will be PM 7 times, while Prachanda switches political alliances faster than you can update your phone apps. *Meme Verdict:* 'Yo Kasto Bawal Ho!' Politics in Nepal changes every season!";
+            }
+
+            // 9. CODING / IT JOBS / AI REPLACEMENT
+            if (q.includes("ai") || q.includes("code") || q.includes("job") || q.includes("developer") || q.includes("replace") || q.includes("software")) {
+                return "**Will AI Replace Developers?**: AI tools like LLMs can generate boilerplate code very fast, but they can't fix a broken production server at 2 AM or decipher vague client demands. *Very Demure, Very Mindful:* Developers who use AI tools effectively will replace those who refuse to adapt!";
+            }
+
+            // DEFAULT MEANINGFUL ANSWER WITH GLOBAL MEME TOUCH
+            return `Regarding **"${query}"**: To solve this, focus on verifiable facts rather than emotional internet noise. Break the task into manageable steps and execute consistently. As the global meme says: *'Roll Safe & Think About It'*—logical planning beats wild speculation every time!`;
+        }
+
+        // Render News Sidebar and Ticker
+        function renderNewsFeed() {
+            const feedContainer = document.getElementById('goofy-news-feed');
+            const tickerContainer = document.getElementById('ticker-content');
+
+            const tickerText = goofyNewsList.map(n => `<span>• [${n.tag}] ${n.headline}</span>`).join(' ');
+            tickerContainer.innerHTML = tickerText + ' ' + tickerText;
+
+            feedContainer.innerHTML = goofyNewsList.map(news => `
+                <div onclick="roastNewsHeadline('${escapeHtml(news.headline)}')" class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-amber-500/50 hover:bg-slate-800/60 transition cursor-pointer group space-y-1.5">
+                    <div class="flex items-center justify-between text-[10px]">
+                        <span class="text-xs font-bold text-amber-400">${news.tag}</span>
+                        <span class="text-slate-500 text-[10px]">${news.source}</span>
+                    </div>
+                    <h4 class="text-xs font-semibold text-slate-200 group-hover:text-amber-300 leading-snug">
+                        ${news.headline}
+                    </h4>
+                    <p class="text-[11px] text-slate-400 italic bg-slate-950/60 p-2 rounded-lg border border-slate-800/50">
+                        "${news.comment}"
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function roastNewsHeadline(headline) {
+            usePrompt(`Give me your sarcastic breakdown of this headline: "${headline}"`);
+        }
+
+        function usePrompt(text) {
+            const input = document.getElementById('user-input');
+            input.value = text;
+            handleSend(new Event('submit'));
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chat-container');
+            container.innerHTML = `
+                <div id="welcome-screen" class="max-w-2xl mx-auto text-center py-10 space-y-6">
+                    <div class="w-16 h-16 rounded-2xl harke-bg-gradient border border-amber-500/40 flex items-center justify-center mx-auto shadow-xl shadow-amber-500/10">
+                        <i class="fa-solid fa-hat-cowboy text-3xl text-amber-400"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                        Namaste! I am <span class="harke-gradient">Harke Bahadur AI</span>.
+                    </h1>
+                    <p class="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed">
+                        Loaded with Nepal political memes, Indian brainrot, and global internet lore. Ask anything for an accurate, informative answer with maximum sarcasm!
+                    </p>
+                </div>
+            `;
+        }
+
+        function handleSend(e) {
+            e.preventDefault();
+            const input = document.getElementById('user-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const welcome = document.getElementById('welcome-screen');
+            if (welcome) welcome.remove();
+
+            const container = document.getElementById('chat-container');
+
+            // User Message UI
+            const userHtml = `
+                <div class="flex items-start justify-end space-x-3 max-w-3xl mx-auto">
+                    <div class="bg-amber-600/30 border border-amber-500/30 text-slate-100 p-4 rounded-2xl rounded-tr-none text-xs md:text-sm max-w-[85%] shadow-sm">
+                        ${escapeHtml(query)}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center font-bold text-xs flex-shrink-0">
+                        YOU
+                    </div>
+                </div>
+            `;
+            container.innerHTML += userHtml;
+            input.value = '';
+
+            // Generate Answer & Select Meme GIF
+            const smartAnswer = getSmartAnswer(query);
+            const selectedMeme = memeGifs[Math.floor(Math.random() * memeGifs.length)];
+
+            // Loading State UI
+            const loadingId = 'loading-' + Date.now();
+            const loadingHtml = `
+                <div id="${loadingId}" class="flex items-start space-x-3 max-w-3xl mx-auto">
+                    <div class="w-8 h-8 rounded-full harke-bg-gradient border border-amber-500/40 flex items-center justify-center text-xs text-amber-300 flex-shrink-0 animate-pulse">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl rounded-tl-none text-xs text-slate-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-spinner animate-spin text-amber-400"></i>
+                        <span>Harke Bahadur is querying Nepal & global meme databases...</span>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += loadingHtml;
+            container.scrollTop = container.scrollHeight;
+
+            // Delayed Output
+            setTimeout(() => {
+                document.getElementById(loadingId)?.remove();
+
+                const aiHtml = `
+                    <div class="flex items-start space-x-3 max-w-3xl mx-auto">
+                        <div class="w-8 h-8 rounded-full harke-bg-gradient border border-amber-500/40 flex items-center justify-center text-xs text-amber-300 flex-shrink-0">
+                            <i class="fa-solid fa-hat-cowboy"></i>
+                        </div>
+                        <div class="space-y-3 max-w-[88%]">
+                            <div class="bg-slate-900/90 border border-slate-800 text-slate-200 p-4 rounded-2xl rounded-tl-none text-xs md:text-sm space-y-3 leading-relaxed shadow-lg">
+                                <div class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider flex items-center">
+                                    <i class="fa-solid fa-comment-dots mr-1.5"></i> Harke Bahadur Dai Says:
+                                </div>
+                                <p>${smartAnswer}</p>
+                                <div class="pt-1">
+                                    <img src="${selectedMeme}" alt="Meme Reaction" class="rounded-xl border border-slate-800 max-h-52 w-auto object-cover">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += aiHtml;
+                container.scrollTop = container.scrollHeight;
+            }, 600);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        window.addEventListener('DOMContentLoaded', renderNewsFeed);
+    </script>
+</body>
+</html>
