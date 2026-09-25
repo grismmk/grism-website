@@ -1,21 +1,10 @@
-const year=document.getElementById("year");
-year.textContent=new Date().getFullYear();
-
+document.getElementById("year").textContent=new Date().getFullYear();
 const panic=document.getElementById("panic");
-panic.addEventListener("click",()=>{
-  document.body.classList.add("shake");
-  panic.textContent="🚨 YOU CLICKED IT.";
-  setTimeout(()=>document.body.classList.remove("shake"),400);
-  setTimeout(()=>panic.textContent="🚨 Do not click",1400);
-});
-
-document.getElementById("surprise").addEventListener("click",function(){
-  const compliments=[
-    "You have excellent taste in websites.",
-    "Honestly? 10/10 clicking skills.",
-    "You survived the whole website. Respect.",
-    "Your browser is proud of you.",
-    "This website officially approves of you."
-  ];
-  this.textContent=compliments[Math.floor(Math.random()*compliments.length)];
-});
+panic.onclick=()=>{document.body.classList.add("shake");panic.textContent="🚨 YOU ACTUALLY CLICKED IT";setTimeout(()=>document.body.classList.remove("shake"),400);setTimeout(()=>panic.textContent="🚨 Do not click",1500)};
+const modal=document.getElementById("modal"),title=document.getElementById("modalTitle"),text=document.getElementById("modalText");
+const memes=[...document.querySelectorAll(".meme")];
+function openMeme(m){title.textContent=m.dataset.title;text.textContent=m.dataset.text;modal.classList.add("show")}
+memes.forEach(m=>m.onclick=()=>openMeme(m));
+document.getElementById("close").onclick=()=>modal.classList.remove("show");
+modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};
+document.getElementById("again").onclick=()=>openMeme(memes[Math.floor(Math.random()*memes.length)]);
