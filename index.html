@@ -1,16 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grism Khanal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Grism Khanal — personal website and cybersecurity portfolio.">
+  <title>Grism Khanal | Personal Website</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h1>Hi, I'm Grism Khanal 👋</h1>
-    <p>Welcome to my personal website.</p>
+  <header class="nav-wrap">
+    <nav class="nav container">
+      <a class="brand" href="#home">GK<span>.</span></a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#focus">Focus</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-    <h2>About Me</h2>
-    <p>This is my personal website.</p>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-grid container">
+        <div class="hero-copy">
+          <p class="eyebrow">WELCOME TO MY WEBSITE</p>
+          <h1>Hi, I'm <span>Grism Khanal.</span></h1>
+          <p class="hero-text">
+            A technology enthusiast interested in cybersecurity, software, and the systems
+            that keep the digital world secure.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#projects">View my work</a>
+            <a class="btn secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="glow"></div>
+          <div class="initials">GK</div>
+          <p>CYBERSECURITY<br>& TECHNOLOGY</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container two-col">
+        <div>
+          <p class="eyebrow">ABOUT ME</p>
+          <h2>Curious about how technology works — and how to make it safer.</h2>
+        </div>
+        <div class="section-copy">
+          <p>
+            I'm Grism, and this is my personal corner of the internet. I'm exploring
+            cybersecurity and technology while building my skills through hands-on projects
+            and continuous learning.
+          </p>
+          <p>
+            I'm especially interested in cybersecurity, networks, cloud technology,
+            and the practical side of protecting digital systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="section alt">
+      <div class="container">
+        <p class="eyebrow">CURRENT FOCUS</p>
+        <h2>What I'm interested in</h2>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">01</div>
+            <h3>Cybersecurity</h3>
+            <p>Learning security concepts, threat awareness, networks, and defensive technologies.</p>
+          </article>
+          <article class="card">
+            <div class="icon">02</div>
+            <h3>Web Technology</h3>
+            <p>Building clean, responsive websites and learning how modern web systems work.</p>
+          </article>
+          <article class="card">
+            <div class="icon">03</div>
+            <h3>Cloud & Systems</h3>
+            <p>Exploring cloud platforms, infrastructure, DNS, and the systems behind online services.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <p class="eyebrow">PROJECTS</p>
+        <div class="section-heading">
+          <h2>Things I'm building</h2>
+          <span>01 — 03</span>
+        </div>
+        <div class="project-list">
+          <article class="project">
+            <span class="project-number">01</span>
+            <div>
+              <h3>Personal Website</h3>
+              <p>A responsive personal website built with HTML, CSS and JavaScript, hosted with GitHub Pages.</p>
+            </div>
+            <span class="tag">WEB</span>
+          </article>
+          <article class="project">
+            <span class="project-number">02</span>
+            <div>
+              <h3>Cybersecurity Learning Lab</h3>
+              <p>A space for documenting cybersecurity concepts, experiments, notes, and future projects.</p>
+            </div>
+            <span class="tag">SECURITY</span>
+          </article>
+          <article class="project">
+            <span class="project-number">03</span>
+            <div>
+              <h3>More Coming Soon</h3>
+              <p>I'm continuously learning and will add new projects here as I build them.</p>
+            </div>
+            <span class="tag">SOON</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="container contact-box">
+        <div>
+          <p class="eyebrow">CONTACT</p>
+          <h2>Let's connect.</h2>
+          <p class="section-copy">Want to see what I'm building or follow my progress? Find me on GitHub.</p>
+        </div>
+        <a class="btn primary" href="https://github.com/grismmk" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Grism Khanal</span>
+      <span>grism.com.np</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
