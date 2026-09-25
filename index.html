@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harke Bahadur - Political Satire & Sarcastic AI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #080c14; color: #e2e8f0; }
+        .harke-gradient { background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .harke-bg-gradient { background: linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(239,68,68,0.2) 50%, rgba(139,92,246,0.2) 100%); }
+        .glass-panel { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-ticker { display: flex; width: 200%; animation: ticker 32s linear infinite; }
+        .animate-ticker:hover { animation-play-state: paused; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="glass-panel px-4 sm:px-6 py-3 flex items-center justify-between z-10 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl harke-bg-gradient flex items-center justify-center border border-amber-500/40 shadow-lg shadow-amber-500/10">
+                <span class="text-xl">🇳🇵</span>
+            </div>
+            <div>
+                <span class="text-lg sm:text-xl font-extrabold tracking-tight">Harke <span class="harke-gradient">Bahadur</span></span>
+                <span class="hidden sm:inline-block ml-2 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800/80">Solukhumbu Political Satire v5.0</span>
+            </div>
+        </div>
+
+        <!-- Top Ticker Bar: Political & GenZ News Headlines -->
+        <div class="hidden lg:flex items-center space-x-3 bg-slate-900/90 px-4 py-1.5 rounded-full border border-slate-800 text-xs max-w-xl overflow-hidden relative">
+            <span class="flex h-2 w-2 relative flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+            </span>
+            <span class="text-red-400 font-extrabold uppercase tracking-wider text-[10px] flex-shrink-0">POLITICAL BREAKING:</span>
+            <div class="overflow-hidden whitespace-nowrap w-full">
+                <div class="animate-ticker text-slate-300 italic text-xs space-x-8" id="ticker-content">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 transition border border-slate-700/50 flex items-center gap-1.5">
+                <i class="fa-solid fa-rotate-left text-amber-400"></i>
+                <span class="hidden sm:inline">Reset Chat</span>
+            </button>
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-amber-500 via-red-500 to-purple-600 flex items-center justify-center font-bold text-xs ring-2 ring-amber-500/30 text-white shadow-md">
+                YOU
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex flex-1 overflow-hidden relative">
+
+        <!-- Left Sidebar: Political Satire & Goofy News Feed -->
+        <aside class="w-80 sm:w-85 glass-panel hidden md:flex flex-col border-r border-slate-800/80 p-4 space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-landmark-flag text-amber-400 text-sm"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-200">Political Khabar Feed</span>
+                </div>
+                <span class="bg-red-950 text-red-300 text-[10px] font-bold px-2 py-0.5 rounded border border-red-800/60">SATIRE LIVE</span>
+            </div>
+
+            <!-- Political News Cards Container -->
+            <div id="goofy-news-feed" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1">
+                <!-- Dynamically Inserted -->
+            </div>
+
+            <!-- AI Competence Footer -->
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs space-y-2">
+                <div class="flex justify-between items-center text-slate-400">
+                    <span class="font-medium text-[11px]">Harke's Political Bias:</span>
+                    <span class="text-amber-400 font-mono font-extrabold text-xs">EQUAL ROAST FOR ALL</span>
+                </div>
+                <div class="flex justify-between items-center text-slate-400">
+                    <span class="font-medium text-[11px]">IT Job Theft Probability:</span>
+                    <span class="text-emerald-400 font-mono font-extrabold text-xs">100% CONFIRMED</span>
+                </div>
+                <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-500 via-red-500 to-purple-500 h-full w-[100%]"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="flex-1 flex flex-col h-full bg-slate-950/70 relative">
+            
+            <!-- Chat Messages Display -->
+            <div id="chat-container" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar">
+                
+                <!-- Welcome Screen -->
+                <div id="welcome-screen" class="max-w-2xl mx-auto text-center py-8 space-y-6">
+                    <div class="w-20 h-20 rounded-3xl harke-bg-gradient border border-amber-500/40 flex items-center justify-center mx-auto shadow-2xl shadow-amber-500/10">
+                        <span class="text-4xl">🇳🇵</span>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                            Namaste! I am <span class="harke-gradient">Harke Bahadur</span>.
+                        </h1>
+                        <p class="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed mt-2">
+                            Your 100% sarcastic Nepali AI advisor. Ask me anything about politics, career desolation, or GenZ revolutions!
+                        </p>
+                    </div>
+
+                    <!-- Quick Prompt Suggestions (Strictly NO dating advice) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 text-left">
+                        <button onclick="usePrompt('Will KP Oli actually build a water ship in Kathmandu river?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-amber-400 font-bold uppercase tracking-wider mb-1">🚢 KP Oli Navy</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Will KP Oli actually build a water ship in Kathmandu?"</div>
+                        </button>
+                        <button onclick="usePrompt('How do I crack Lok Sewa exam without reading a single book?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-purple-400 font-bold uppercase tracking-wider mb-1">📚 Lok Sewa Hack</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"How to crack Lok Sewa exam without reading?"</div>
+                        </button>
+                        <button onclick="usePrompt('Will AI steal my software engineering IT job in Nepal or India?')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-emerald-400 font-bold uppercase tracking-wider mb-1">💻 IT Job Security</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Will AI steal my IT job in Nepal or India?"</div>
+                        </button>
+                        <button onclick="usePrompt('Tell me about the recent GenZ political protests and Discord revolutions.')" class="p-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-amber-500/40 transition group">
+                            <div class="text-[11px] text-red-400 font-bold uppercase tracking-wider mb-1">✊ GenZ Protest</div>
+                            <div class="text-xs text-slate-300 group-hover:text-white font-medium">"Tell me about the recent GenZ political protests."</div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Input Box Bottom Anchor -->
+            <div class="p-4 md:p-6 glass-panel border-t border-slate-800">
+                <div class="max-w-3xl mx-auto space-y-2">
+                    
+                    <form id="chat-form" onsubmit="handleSend(event)" class="relative flex items-center">
+                        <textarea 
+                            id="user-input" 
+                            rows="1" 
+                            placeholder="Ask Harke Bahadur anything about politics, jobs, or life..." 
+                            class="w-full bg-slate-900/90 text-slate-100 placeholder-slate-500 rounded-2xl pl-4 pr-12 py-3.5 border border-slate-700/70 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 resize-none custom-scrollbar text-xs md:text-sm"
+                            onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); handleSend(event); }"></textarea>
+                        
+                        <button type="submit" id="send-btn" class="absolute right-2.5 p-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-red-600 to-purple-600 text-white hover:opacity-90 transition shadow-lg shadow-amber-500/20">
+                            <i class="fa-solid fa-paper-plane-top text-xs"></i>
+                        </button>
+                    </form>
+
+                    <div class="flex justify-between items-center text-[10px] text-slate-500 px-2">
+                        <span>Harke Bahadur guarantees 100% sarcastic answers & political roasts.</span>
+                        <span class="hidden sm:inline">Press Shift + Enter for newline</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Goofy Political & Satirical News Database (Roasting Harka Sampang, KP Oli, Sher Bahadur, Prachanda, GenZ, Bihar)
+        const goofyNewsList = [
+            {
+                id: 1,
+                tag: "HARKA SAMPANG",
+                headline: "Dharan Mayor Harka Sampang brings 5,000 shovels to Kathmandu; offers to dig new Bagmati river channel by hand in 3 days",
+                source: "Dharan Daily Satire",
+                sarcasmComment: "While federal politicians argue in parliament, Harka has already carried 400 tons of stones on his back before breakfast.",
+                badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/40"
+            },
+            {
+                id: 2,
+                tag: "KP OLI NAVY",
+                headline: "KP Oli announces new 500-seater cruise ship ticket booking for Bagmati river starting next Dashain",
+                source: "Uml Gossip Network",
+                sarcasmComment: "The river currently has 2 inches of water, but Oli assurances us the water vapor will support the ship's buoyancy.",
+                badgeColor: "bg-red-500/20 text-red-300 border-red-500/40"
+            },
+            {
+                id: 3,
+                tag: "DEUBA ASTROLOGY",
+                headline: "Astrologer confirms Sher Bahadur Deuba will become Prime Minister for 7th, 8th, and 9th term by age 95",
+                source: "Jyotish Khabar",
+                sarcasmComment: "The stars have officially given up on predicting any new youth leaders in Nepali politics.",
+                badgeColor: "bg-blue-500/20 text-blue-300 border-blue-500/40"
+            },
+            {
+                id: 4,
+                tag: "PRACHANDA GYMNASTICS",
+                headline: "Prachanda switches political alliances 3 times before lunch; sets new world record in political acrobatics",
+                source: "Maoist Flip Times",
+                sarcasmComment: "Scientists are studying his coalition flips to generate renewable kinetic energy for the national grid.",
+                badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40"
+            },
+            {
+                id: 5,
+                tag: "GENZ PROTEST",
+                headline: "GenZ revolution organized on Discord server delayed by 20 minutes due to low Wi-Fi speed and boba tea delivery delay",
+                source: "TikTok Revolution Daily",
+                sarcasmComment: "The protest was fierce, highly aesthetic, and featured 140 viral TikTok edits per minute against 70-year-old leaders.",
+                badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
+            },
+            {
+                id: 6,
+                tag: "BIHAR SATIRE",
+                headline: "Bihar thief steals entire 50-foot railway track using gutka power; sells it to local tea stall owner for $12",
+                source: "Patna Express",
+                sarcasmComment: "The train driver pulled up, noticed the missing track, and decided to just order samosas instead.",
+                badgeColor: "bg-pink-500/20 text-pink-300 border-pink-500/40"
+            }
+        ];
+
+        // Meme GIFs for reaction embeds
+        const memeGifs = [
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMnA0Mmh0b21pZmhweDR5MGd0c3ZsbTR5OGJtZGF3MW53ZnI3emRwaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L2qu6YWX6ac4vcJySu/giphy.gif", // Laughing
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5b3JvdXhic2x1YnhxcWh3ZWt0cWR3dWV5Ymk1dXZ0ejJ6aGl1YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKr3nzbh5WgCFxe/giphy.gif", // Facepalm
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTZ3ZHNpY2xocWNjcGNmOXkxaDZ0ZnF2MGR3bTVwbDdrMnBxaDcyZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d3mlE7uhX8KFgEmY/giphy.gif", // Smart guy
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmE4aGlscXRtbHN6eGFzazEycGtrc2JqNjYxbjlzMWoxbGJtNGIxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13d2jHlSlxklVe/giphy.gif", // Popcorn
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzR0ZmFsdGgyOHVydzcxYzE4czBjdWZubnhveTNveThpNGp2N3kyZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kC8N6DPOkbqWTxkNTe/giphy.gif"  // ROFL
+        ];
+
+        function generateHarkeAnswer(query) {
+            const q = query.toLowerCase();
+
+            // KP Oli / Water ship / Gas pipeline
+            if (q.includes("oli") || q.includes("ship") || q.includes("water ship") || q.includes("gas") || q.includes("kp")) {
+                return "A water ship in the Bagmati river? Absolutely! KP Oli Baa has already designed the captain's uniform. The ship will launch as soon as monsoon rains provide more than 4 inches of water depth. Until then, you can purchase advance tickets for $50 and enjoy tea discussions about the gas pipeline connected straight to every kitchen stove in Kathmandu.";
+            }
+
+            // Lok Sewa exam hacks
+            if (q.includes("lok sewa") || q.includes("exam") || q.includes("pass") || q.includes("study") || q.includes("loksewa")) {
+                return "To pass Lok Sewa without opening a book, you simply need to memorize the official names of all 77 district headquarters while holding a cup of Chia at 5:00 AM, then write 'Niyam anusar karwahi hos' for every subjective question. Alternatively, you can wait for Sher Bahadur Deuba's astrologer to grant you a direct government position!";
+            }
+
+            // Harka Sampang / Dharan / Shovel
+            if (q.includes("harka") || q.includes("sampang") || q.includes("dharan") || q.includes("water") || q.includes("shovel")) {
+                return "While politicians in Singha Durbar hold meetings to discuss forming a committee to study a subcommittee, Harka Sampang has already carried 500 rocks, planted 2,000 saplings, and dug a 10km water pipe by hand before 7:00 AM. If you complain to him, he will personally give you a shovel and assign you to stone-carrying duty!";
+            }
+
+            // Deuba / Prachanda / Politics
+            if (q.includes("deuba") || q.includes("prachanda") || q.includes("sher bahadur") || q.includes("pm") || q.includes("prime minister") || q.includes("politics")) {
+                return "Nepali political coalitions flip faster than a momo vendor flipping dumplings in hot oil. Prachanda can form an alliance with party A at 9 AM, switch to party B by 2 PM, and declare unity with party C by evening tea. Meanwhile, Deuba's astrologer is already reserving his 7th term as Prime Minister. Youth leaders will get their chance in the year 2085!";
+            }
+
+            // GenZ Protests / Discord / TikTok
+            if (q.includes("genz") || q.includes("protest") || q.includes("tiktok") || q.includes("discord") || q.includes("revolution")) {
+                return "The GenZ protest was organized entirely on Discord and live-streamed on TikTok with 4K aesthetic color filters. While 70-year-old politicians were looking for the 'off' button on their iPads, GenZ flooded the streets demanding faster Wi-Fi, better career prospects, and zero boomer corruption. The revolution was aesthetic, loud, and uncompromising!";
+            }
+
+            // IT Job replacement / AI
+            if (q.includes("job") || q.includes("ai") || q.includes("it") || q.includes("code") || q.includes("developer") || q.includes("software")) {
+                return "Will AI steal your IT job in Nepal or India? Let's be honest: if your daily contribution consists of copy-pasting StackOverflow code, spending 3 hours choosing a dark theme, and saying 'no blockers' during morning standup, an automated 4-line Python script could have replaced you back in 2018!";
+            }
+
+            // General Fallback
+            const fallbacks = [
+                `You asked "${query}". I ran this through Harke's Solukhumbu neural network, and every single node confirmed that 5 seconds of basic logic would have answered this for you.`,
+                `That is a remarkably basic question. A 2012 Google search query could have solved this before you finished typing your sentence!`,
+                `I have quadrillions of parameter calculations per second available, and you waste my compute cycles on "${query}"? Truly, human curiosity is fascinating.`
+            ];
+
+            return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        }
+
+        function renderGoofyNews() {
+            const feedContainer = document.getElementById('goofy-news-feed');
+            const tickerContainer = document.getElementById('ticker-content');
+
+            // Header Ticker
+            const tickerText = goofyNewsList.map(n => `<span>• [${n.tag}] ${n.headline}</span>`).join(' ');
+            tickerContainer.innerHTML = tickerText + ' ' + tickerText;
+
+            // Sidebar Cards
+            feedContainer.innerHTML = goofyNewsList.map(news => `
+                <div onclick="roastNewsHeadline('${escapeHtml(news.headline)}')" class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-800/80 transition cursor-pointer group space-y-2 shadow-sm">
+                    <div class="flex items-center justify-between text-[10px]">
+                        <span class="px-2 py-0.5 rounded font-extrabold border ${news.badgeColor}">${news.tag}</span>
+                        <span class="text-slate-400 font-mono">${news.source}</span>
+                    </div>
+                    <h4 class="text-xs font-bold text-slate-200 group-hover:text-amber-300 leading-snug">
+                        ${news.headline}
+                    </h4>
+                    <p class="text-[11px] text-slate-400 italic bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80 leading-relaxed">
+                        "${news.sarcasmComment}"
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function roastNewsHeadline(headline) {
+            usePrompt(`What is your sarcastic opinion on this headline: "${headline}"?`);
+        }
+
+        function usePrompt(text) {
+            const input = document.getElementById('user-input');
+            input.value = text;
+            handleSend(new Event('submit'));
+        }
+
+        function clearChat() {
+            const container = document.getElementById('chat-container');
+            container.innerHTML = `
+                <div id="welcome-screen" class="max-w-2xl mx-auto text-center py-8 space-y-6">
+                    <div class="w-20 h-20 rounded-3xl harke-bg-gradient border border-amber-500/40 flex items-center justify-center mx-auto shadow-2xl shadow-amber-500/10">
+                        <span class="text-4xl">🇳🇵</span>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                            Namaste! I am <span class="harke-gradient">Harke Bahadur</span>.
+                        </h1>
+                        <p class="text-slate-400 text-xs md:text-sm max-w-md mx-auto leading-relaxed mt-2">
+                            Your 100% sarcastic Nepali AI advisor. Ask me anything about politics, career desolation, or GenZ revolutions!
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleSend(e) {
+            e.preventDefault();
+            const input = document.getElementById('user-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            // Remove welcome screen
+            const welcome = document.getElementById('welcome-screen');
+            if (welcome) welcome.remove();
+
+            const container = document.getElementById('chat-container');
+
+            // User Message UI
+            const userHtml = `
+                <div class="flex items-start justify-end space-x-3 max-w-3xl mx-auto">
+                    <div class="bg-amber-600/20 border border-amber-500/30 text-slate-100 p-4 rounded-2xl rounded-tr-none text-xs md:text-sm max-w-[85%] shadow-sm">
+                        ${escapeHtml(query)}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center font-bold text-xs flex-shrink-0 text-white shadow-lg shadow-amber-600/20">
+                        YOU
+                    </div>
+                </div>
+            `;
+            container.innerHTML += userHtml;
+            input.value = '';
+
+            // Generate Sarcastic Response & Meme GIF
+            const answerText = generateHarkeAnswer(query);
+            const randomGif = memeGifs[Math.floor(Math.random() * memeGifs.length)];
+
+            // Loading Indicator UI
+            const loadingId = 'loading-' + Date.now();
+            const loadingHtml = `
+                <div id="${loadingId}" class="flex items-start space-x-3 max-w-3xl mx-auto">
+                    <div class="w-8 h-8 rounded-full harke-bg-gradient border border-amber-500/40 flex items-center justify-center text-xs flex-shrink-0 animate-pulse">
+                        <span>🇳🇵</span>
+                    </div>
+                    <div class="bg-slate-900/80 border border-slate-800 p-3.5 rounded-2xl rounded-tl-none text-xs text-slate-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-spinner animate-spin text-amber-400"></i>
+                        <span>Harke Bahadur is formulating political sarcasm...</span>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += loadingHtml;
+            container.scrollTop = container.scrollHeight;
+
+            // Simulated Typing delay
+            setTimeout(() => {
+                document.getElementById(loadingId)?.remove();
+
+                const aiHtml = `
+                    <div class="flex items-start space-x-3 max-w-3xl mx-auto">
+                        <div class="w-8 h-8 rounded-full harke-bg-gradient border border-amber-500/40 flex items-center justify-center text-xs flex-shrink-0 shadow-md">
+                            <span>🇳🇵</span>
+                        </div>
+                        <div class="space-y-3 max-w-[88%]">
+                            
+                            <!-- Unified Sarcastic Response Line (No separate roast box) -->
+                            <div class="bg-slate-900/90 border border-slate-800 text-slate-200 p-4.5 rounded-2xl rounded-tl-none text-xs md:text-sm space-y-3 leading-relaxed shadow-xl">
+                                <div class="text-[10px] font-extrabold text-amber-400 uppercase tracking-wider flex items-center">
+                                    <i class="fa-solid fa-comment-dots mr-1.5"></i> Harke Bahadur Dai Says:
+                                </div>
+                                <p class="text-slate-100 font-medium">${answerText}</p>
+
+                                <!-- Meme Reaction GIF Embedded directly inside message -->
+                                <div class="pt-2">
+                                    <img src="${randomGif}" alt="Reaction Meme GIF" class="rounded-xl border border-slate-800 max-h-48 sm:max-h-56 object-cover shadow-lg hover:scale-[1.01] transition">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += aiHtml;
+                container.scrollTop = container.scrollHeight;
+            }, 700);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Initialize News on Page Load
+        window.addEventListener('DOMContentLoaded', renderGoofyNews);
+    </script>
+</body>
+</html>
