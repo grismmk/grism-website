@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MemeBaje – Which Meme Are You?</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Baloo+2:wght@500;700;800&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff4e0;--bg2:#ffe3d3;--card:#ffffff;--ink:#2a1a14;--soft:#7a6454;--bot:#ffffff;--me1:#dc143c;--me2:#b00f4a;--blue:#003893;--line:#f0dcc4;--news:#fffbe8;--shadow:0 6px 18px rgba(120,60,20,.12);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17110d;--bg2:#241624;--card:#261d17;--ink:#f7ecdf;--soft:#b9a591;--bot:#2d231b;--line:#3d3027;--news:#2b2416;--shadow:0 6px 18px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#17110d;--bg2:#241624;--card:#261d17;--ink:#f7ecdf;--soft:#b9a591;--bot:#2d231b;--line:#3d3027;--news:#2b2416;--shadow:0 6px 18px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(circle at 10% 0%,var(--bg2),transparent 45%),radial-gradient(circle at 100% 100%,#ffd1dc55,transparent 40%),var(--bg);color:var(--ink);font-family:"Baloo 2","Noto Sans Devanagari",system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:linear-gradient(100deg,var(--me1),var(--blue));color:#fff;box-shadow:var(--shadow);position:relative;z-index:2}
+header .av{font-size:34px;background:#fff3;border-radius:50%;width:48px;height:48px;display:grid;place-items:center;animation:wob 3s ease-in-out infinite}
+header h1{margin:0;font-size:24px;font-weight:800;letter-spacing:.3px}
+header p{margin:0;font-size:12px;opacity:.9}
+.chip{border:2px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+header .chip{color:#fff;background:#ffffff22}
+header .chip:hover{background:#fff;color:var(--me1)}
+.wrap{flex:1;display:grid;grid-template-columns:1fr 320px;gap:14px;padding:12px;min-height:0;max-width:1180px;width:100%;margin:0 auto}
+.chatbox{display:flex;flex-direction:column;min-height:0;background:var(--card);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;border:2px solid var(--line)}
+#chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.m{max-width:86%;padding:10px 14px;border-radius:20px;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;font-size:16px;animation:in .25s ease-out;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.bot{background:var(--bot);border:2px solid var(--line);align-self:flex-start;border-bottom-left-radius:5px}
+.me{background:linear-gradient(135deg,var(--me1),var(--me2));color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+.dots span{display:inline-block;width:8px;height:8px;margin:0 2px;border-radius:50%;background:var(--soft);animation:dot 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+.opts{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start;max-width:95%;animation:in .3s}
+.opts button{border:2px solid var(--me1);background:var(--card);color:var(--ink);border-radius:14px;padding:8px 14px;font:inherit;font-size:15px;cursor:pointer;box-shadow:0 3px 0 var(--me1);transition:transform .08s}
+.opts button:hover{background:var(--me1);color:#fff}
+.opts button:active{transform:translateY(3px);box-shadow:none}
+.res{background:linear-gradient(160deg,var(--card),var(--bg2));border:3px solid var(--me1);border-radius:22px;padding:16px;align-self:stretch;box-shadow:var(--shadow);animation:in .4s}
+.res .big{font-size:70px;text-align:center;animation:bounce 1.2s infinite}
+.res h2{margin:2px 0;text-align:center;font-size:26px}
+.bar{height:10px;border-radius:6px;background:var(--line);margin:3px 0 8px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--me1),var(--blue));border-radius:6px}
+.row{font-size:13px;display:flex;justify-content:space-between}
+.gif{position:relative;margin-top:10px;border-radius:16px;overflow:hidden;padding:16px 10px 8px;text-align:center;width:min(260px,100%);color:#fff;border:3px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.gif .em{font-size:76px;line-height:1.1;display:inline-block}
+.gif .sp{position:absolute;font-size:22px;opacity:.85;animation:float 2.4s ease-in-out infinite}
+.gif .cap{font-family:Anton,Impact,sans-serif;font-size:21px;letter-spacing:1px;text-transform:uppercase;line-height:1.15;margin-top:4px;color:#fff;text-shadow:2px 2px 0 #000,-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000}
+.gif .tag{position:absolute;top:5px;left:8px;font-size:10px;font-family:system-ui;background:#000a;padding:1px 6px;border-radius:6px;letter-spacing:.5px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px 0}
+.chips .chip{color:var(--blue);border-color:var(--blue);font-size:13px}
+.chips .chip:hover{background:var(--blue);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chips .chip{color:#9bb8ff;border-color:#9bb8ff}}
+form{display:flex;gap:8px;padding:10px 12px 12px}
+input{flex:1;padding:12px 16px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px;min-width:0;outline:none}
+input:focus{border-color:var(--me1)}
+.send{background:linear-gradient(135deg,var(--me1),var(--me2));color:#fff;border:0;border-radius:999px;padding:0 20px;font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+/* news */
+aside{display:flex;flex-direction:column;min-height:0;background:var(--news);border:2px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.mast{padding:10px 14px;border-bottom:3px double var(--ink);text-align:center}
+.mast h3{margin:0;font-family:Anton,Impact,serif;font-size:26px;letter-spacing:2px;font-weight:400}
+.mast small{font-size:11px;color:var(--soft)}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e11;margin-right:5px;animation:pulse 1s infinite}
+#news{flex:1;overflow-y:auto;padding:6px 14px}
+.n{padding:10px 0;border-bottom:1px dashed var(--line);animation:in .5s}
+.n:first-child{animation:flash 1.2s}
+.n b{display:block;font-size:15px;line-height:1.25}
+.n small{color:var(--soft);font-size:11px}
+.nf{padding:8px 12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--soft)}
+.nf .chip{color:var(--blue);border-color:var(--blue);font-size:12px;padding:3px 10px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr;padding:8px;gap:8px}aside{max-height:96px;cursor:pointer}aside.open{max-height:55vh}.mast{padding:4px 10px}.mast h3{font-size:18px}.mast small{display:none}header h1{font-size:20px}header p{display:none}.m{max-width:92%}}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes dot{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes wob{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px) rotate(-6deg)}40%{transform:translateX(8px) rotate(6deg)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pop{0%,60%,100%{transform:scale(1)}30%{transform:scale(1.4)}}
+@keyframes wobble{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+@keyframes spin{0%{transform:rotate(0)}70%,100%{transform:rotate(360deg)}}
+@keyframes swing{0%,100%{transform:translateX(-12px) rotate(-6deg)}50%{transform:translateX(12px) rotate(6deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes dance{0%{transform:translate(-10px,0) rotate(-10deg)}25%{transform:translate(0,-12px) rotate(0)}50%{transform:translate(10px,0) rotate(10deg)}75%{transform:translate(0,-12px) rotate(0)}100%{transform:translate(-10px,0) rotate(-10deg)}}
+@keyframes clap{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.25) rotate(-8deg)}50%{transform:scale(.9)}75%{transform:scale(1.25) rotate(8deg)}}
+@keyframes flash{0%{background:#ffe066aa}100%{background:transparent}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header><div class="av">🧔</div><div style="flex:1"><h1>MemeBaje</h1><p>Your overly dramatic meme guru · Kathmandu → World</p></div><button class="chip" id="lang">नेपाली</button></header>
+<div class="wrap">
+ <div class="chatbox">
+  <div id="chat"></div>
+  <div class="chips" id="chips"></div>
+  <form id="f"><input id="inp" placeholder="Say something to Baje…" autocomplete="off"><button class="send" type="submit">Send</button></form>
+ </div>
+ <aside id="side">
+  <div class="mast"><h3>BAJE TIMES</h3><small><span class="live"></span>LIVE · 100% fake news, 100% real chiya</small></div>
+  <div id="news"></div>
+  <div class="nf"><span id="upd">Fresh headline every few seconds</span><button class="chip" id="fresh">🔄 Fresh news</button></div>
+ </aside>
+</div>
+
+<script>
+const CH={
+ baburao:{e:"👓",n:"Baburao Energy",d:"You're loud, stressed, and somehow always right. You've screamed 'yeh mera style hai' at a printer. Tea-shop uncles bow to you."},
+ jetha:{e:"🧑‍💼",n:"Jethalal Mode",d:"Charming, chaotic, and in constant trouble because of one small lie that grew legs. Your WhatsApp family group fears you."},
+ distract:{e:"👀",n:"Distracted Boyfriend",d:"You open 14 tabs, start 6 hobbies, and look at the new thing while the old thing watches you in disbelief."},
+ chad:{e:"🗿",n:"Gigachad",d:"Calm. Silent. Jawline visible from Pashupatinath. You reply 'ok' and somehow win the argument."},
+ pikachu:{e:"😲",n:"Surprised Pikachu",d:"You skip studying for exams and then act shocked when exams happen. Pure, innocent, unbothered chaos."},
+ dai:{e:"🍵",n:"Tea-Shop Dai",d:"You have opinions on politics, football, and your neighbour's kid's marks, all delivered over one glass of chiya. Nobody asked. Everybody listened."},
+ momo:{e:"🥟",n:"Momo Maniac",d:"Your love language is 'steam or fried?'. You judge people by their achar and would cross Ring Road in a monsoon for a 10-plate."},
+ penguin:{e:"🐧",n:"Nihilist Penguin",d:"You stare into the void, the void stares back, and you both go 'eh, whatever'. Peak 2026 energy: marching toward the mountains alone."},
+ fine:{e:"🔥",n:"This Is Fine Dog",d:"Load-shedding? Fine. Traffic at Koteshwor? Fine. Wallet empty? Fine. Everything is on fire, and you're sipping chiya."}
+};
+const Q=[
+ {q:"It's 11 PM. Exam tomorrow. Your move?",a:[["Panic, then scream at the book",{baburao:2}],["Open 'just one reel'... it's 3 AM",{distract:2,pikachu:1}],["Sleep. Trust the vibes.",{chad:2,fine:1}],["Make a fake excuse already",{jetha:2}]]},
+ {q:"Traffic jam at Ring Road. A cow is vibing in the middle.",a:[["Honk 400 times",{baburao:2}],["Order momo online while stuck",{fine:2,distract:1}],["Take a shortcut through a gali, regret it",{jetha:2,pikachu:1}],["Stare. Cow respects you.",{chad:2}]]},
+ {q:"Your phone says 2% battery and load-shedding starts.",a:[["'Sab theek hai' (cries)",{fine:2}],["Borrow charger, lose it",{jetha:1,distract:1}],["Shocked: 'It was 50% a minute ago!'",{pikachu:2}],["Go outside and talk to humans",{chad:2}]]},
+ {q:"Group chat is in a fight about cricket. Nepal vs India vs USA!",a:[["Send 17 memes in 3 minutes",{distract:2,jetha:1}],["Write a legendary 12-paragraph reply",{baburao:2}],["Send one gif. Mic drop.",{chad:2}],["Leave group, rejoin, act confused",{pikachu:2,fine:1}]]},
+ {q:"Dream job?",a:[["Boss of my own tea shop",{baburao:1,chad:1}],["Anything with free snacks",{pikachu:1,fine:2}],["Influencer. Not sure of what.",{distract:2,jetha:1}],["Minister. Sorry, no pressure.",{jetha:2,baburao:1}]]},
+ {q:"Friend says 'let's grab something quick'. You think...",a:[["Momo. Obviously. Always.",{momo:3}],["Chiya and 3 hours of gossip",{dai:3}],["Why do we even eat... but okay",{penguin:2,fine:1}],["Whatever the group picks, I'll complain later",{distract:1,jetha:1}]]},
+ {q:"Someone posts a hot take online. You...",a:[["Reply with a 9-paragraph essay",{dai:2,baburao:1}],["Screenshot it for the group chat",{distract:1,jetha:1}],["Stare at the screen, close the app, walk off",{penguin:3}],["Post 'Momo is better' and vanish",{momo:2,chad:1}]]},
+ {q:"Your superpower is...",a:[["Never being on time",{pikachu:1,jetha:1}],["Staying calm in total disaster",{fine:2,chad:1}],["Starting fights over tea",{baburao:2,dai:1}],["Ignoring work for something shinier",{distract:2}]]}
+];
+const TREND=[
+ ["🐧","Nihilist Penguin","The lone penguin walking toward the mountains went huge in early 2026. Use for: Monday mornings, deadlines, 'what even is a career'."],
+ ["🎤","Bad Bunny halftime memes","Super Bowl season gave us a flood of reaction edits. Use for: arriving somewhere you were NOT invited, dancing."],
+ ["🧟","Stranger Things S5 farewell","The final season (Dec 2025) kept the 'Upside Down' jokes going. Use for: your sleep schedule and Kathmandu dust."],
+ ["❄️","Mariah 'defrosting' meme","Comes back every November. Use for: the day Kathmandu mornings turn cold."],
+ ["🎬","Hannah Montana 20th anniversary","Nostalgia wave in March 2026. Use for: 'my childhood is now old' posts."],
+ ["🏏","Evergreen: IPL & cricket banter","Nepal vs India vs USA debates always return, usually at 11 PM in the group chat."],
+ ["🚦","Evergreen: traffic, load-shedding, tea","Kathmandu rush-hour is basically a speedrun in patience."]
+];
+/* animated meme stickers: key -> [emoji, animation, color1, color2, sparkles] */
+const R={
+ facepalm:["🤦","shake","#6a5acd","#8e7cf0","😩💥"],mindblown:["🤯","pulse","#ff7a18","#e8590c","✨💫"],laugh:["😂","bounce","#ff4d6d","#ff8e3c","🤣😆"],
+ shock:["😲","pop","#0096c7","#48cae4","❗⚡"],tea:["🍵","wobble","#2d6a4f","#52b788","☕♨️"],fire:["🔥","pulse","#c1121f","#ff6b35","💥🌶️"],
+ cry:["😭","shake","#3a0ca3","#4895ef","💧💧"],cool:["😎","swing","#1b1b3a","#693668","🕶️✨"],think:["🤔","wobble","#7b2cbf","#c77dff","💭❓"],
+ dance:["🕺","dance","#f72585","#ff9e00","🎶🪩"],sleep:["😴","float","#264653","#2a9d8f","💤🌙"],clap:["👏","clap","#e76f51","#f4a261","🎉✨"],
+ eyeroll:["🙄","spin","#5f0f40","#9a031e","😒💅"],momo:["🥟","bounce","#f77f00","#e85d04","😋🌶️"]
+};
+const RK=Object.keys(R);
+const CAPS=["WHEN THE WIFI WORKS","BRO WHAT","ME AT 3 AM","THIS IS FINE","SAB THEEK HAI","NEPALI TIME LOADING","CHIYA FIRST. THEN LIFE","NO ONE: ABSOLUTELY NO ONE"];
+const FALL=[
+ "Hmm, big brain question. My brain buffered like Nepali internet at 8 PM. Try again, bro. 📶",
+ "I'd answer, but I'm busy being a legend. Ask me later, or ask about memes! 😎",
+ "That's deep. Even Baburao would say 'Utha le re baba' and walk away. 🏃",
+ "Sorry, my AI is on load-shedding right now. Back in 2 hours (Nepali time = 5). 🔌",
+ "Bro. Bro. BRO. Just take the quiz, it's more fun than my answer. 🎯"
+];
+const FALL_NE=[
+ "ल मेरो दिमाग त नेपाली इन्टरनेट जस्तै बफर भयो! 📶 अर्को पटक सोध है।",
+ "यो प्रश्नको जवाफ दिन म अहिले बिजी छु — चिया खाँदै छु। ☕ मिम बारे सोध न!",
+ "ए साथी, क्विज खेल न, मेरो जवाफभन्दा रमाइलो छ। 🎯"
+];
+const NEWS=[
+ "Kathmandu man arrives on time; relatives demand DNA test",
+ "Local cow appointed Ring Road traffic officer; compliance hits 100%, fines remain zero",
+ "Load-shedding schedule now announced by 'vibes'; accuracy still zero",
+ "Momo shop adds 'spicy level: tell my mother'; customers cry in 4 languages",
+ "Study finds 9 out of 10 'two minutes' in Nepal are actually 40 minutes",
+ "Tea-shop uncle solves world economy, refuses to share until chiya is refilled",
+ "Cricket fans in three countries confidently predict match; all wrong, all loud",
+ "Gym member visits gym; staff throw small festival",
+ "Pigeon at Basantapur wins biscuit-rights debate with tourist",
+ "Wi-Fi works only when you stand on one leg near the window, say experts",
+ "Phone at 1% survives 3 more hours out of pure spite",
+ "Penguin walking toward mountains forgets why, keeps walking anyway",
+ "Group chat 'quick call?' enters its third hour",
+ "Exam-eve motivation arrives at 3 AM, uninvited and fully charged",
+ "Dal bhat declared national power source; 24-hour power cut still can't stop it",
+ "Scientists confirm 'Nepali time' is a fourth dimension",
+ "Uncle's WhatsApp 'Good Morning' image reaches 4,000 relatives before sunrise",
+ "Man says 'just one more reel'; sun rises in protest"
+];
+const SYS=`You are MemeBaje, a hilarious, warm, over-dramatic Nepali meme guru chatbot. Reply in short (max 70 words), funny, playful English with light Nepali/Hindi flavor (dai, sathi, ta, yaar, chiya, momo, load-shedding, Kathmandu traffic). Reference memes and pop culture from Nepal, India (Hera Pheri, Jethalal, IPL, Bollywood) and USA/global (Drake, Distracted Boyfriend, Gigachad, This Is Fine, Surprised Pikachu, Nihilist Penguin). Be roasty but kind. Never mock religion, caste, ethnicity, or politicians, and never be hateful. If asked something serious, give a genuinely useful answer first, then add a joke. Use 1-3 emojis. Occasionally suggest the "Which Meme Are You?" quiz. Never quote copyrighted lyrics or scripts. Your meme knowledge is from before mid-2026; if unsure a meme is current, say so with a joke.
+END EVERY reply with one reaction-GIF tag on its own last line, exactly like: [[GIF: key | SHORT CAPS ENGLISH CAPTION]] where key is one of: ${Object.keys(R).join(", ")}. The caption is max 6 words, meme style, matching your joke.`;
+const sysFor=()=>SYS+(NE?"\nIMPORTANT: Write the reply text in Nepali (Devanagari script), casual and funny, with a few English meme words. The GIF tag stays in English.":"");
+
+const chat=document.getElementById('chat'),inp=document.getElementById('inp'),chips=document.getElementById('chips'),newsEl=document.getElementById('news');
+let hist=[],sample=null,busy=false,qi=0,score={},NE=false,aiOK=false;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const down=()=>{chat.scrollTop=chat.scrollHeight};
+
+function gif(key,cap){
+ const r=R[key]||R[RK[Math.floor(Math.random()*RK.length)]];
+ const d=document.createElement('div');d.className='gif';d.style.background=`linear-gradient(135deg,${r[2]},${r[3]})`;
+ const sp=[...r[4]];
+ const spots=[["8%","30%"],["82%","25%"],["15%","62%"],["78%","58%"]];
+ sp.slice(0,4).forEach((c,i)=>{const s=document.createElement('span');s.className='sp';s.textContent=c;s.style.left=spots[i][0];s.style.top=spots[i][1];s.style.animationDelay=(i*.4)+'s';d.appendChild(s)});
+ const tag=document.createElement('div');tag.className='tag';tag.textContent='🎞️ MEMEBAJE GIF';d.appendChild(tag);
+ const e=document.createElement('div');e.className='em';e.textContent=r[0];e.style.animation=`${r[1]} 1.1s ease-in-out infinite`;d.appendChild(e);
+ const c=document.createElement('div');c.className='cap';c.textContent=cap||CAPS[Math.floor(Math.random()*CAPS.length)];d.appendChild(c);
+ return d;
+}
+function add(t,cls){const d=document.createElement('div');d.className='m '+cls;d.textContent=t;chat.appendChild(d);down();return d}
+function typing(){const d=document.createElement('div');d.className='m bot dots';d.innerHTML='<span></span><span></span><span></span>';chat.appendChild(d);down();return d}
+function opts(list,fn){const d=document.createElement('div');d.className='opts';list.forEach(([t,v])=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{d.remove();fn(t,v)};d.appendChild(b)});chat.appendChild(d);down()}
+async function bot(t,withGif){const d=typing();await sleep(450);d.classList.remove('dots');d.textContent=t;if(withGif)d.appendChild(gif(withGif));down()}
+
+async function start(){
+ await bot("Namaste, sathi! 🙏 I'm MemeBaje — part Baburao, part tea-shop uncle, part WiFi that works only near the window.",'tea');
+ await bot("Want to find out which meme YOU really are? Or just chat — I'll roast you gently like momo chutney.");
+ opts([["🎯 Take the quiz",1],["💬 Just chat",2]],(t,v)=>{add(t,'me');v==1?quiz():chatMode()});
+ showChips();
+}
+function chatMode(){bot("Ask me anything! Life advice, exam excuses, meme ideas, India vs Nepal debates... every answer comes with a reaction GIF. 😎",'cool')}
+function showChips(){
+ chips.innerHTML='';
+ ["🔥 Latest memes","Roast me","Explain Kathmandu traffic","Best excuse for being late","Start the quiz"].forEach(t=>{const c=document.createElement('button');c.className='chip';c.textContent=t;c.onclick=()=>send(t);chips.appendChild(c)});
+}
+async function quiz(){qi=0;score={};await bot(`Rules: ${Q.length} questions, zero accuracy, 100% vibes. Go! 🚀`,'dance');ask()}
+async function ask(){
+ if(qi>=Q.length)return result();
+ const q=Q[qi];
+ await bot(`Q${qi+1}/${Q.length}: ${q.q}`);
+ opts(q.a,(t,v)=>{add(t,'me');for(const k in v)score[k]=(score[k]||0)+v[k];qi++;ask()});
+}
+async function trending(){
+ await bot(NE?"ताजा मिम, सीधै चुल्होबाट! 🔥":"Fresh memes, straight off the chulo! 🔥 (Memes die fast, so tell me if one is stale.)");
+ const d=document.createElement('div');d.className='res';
+ TREND.forEach(([e,n,t])=>{const r=document.createElement('div');r.style.margin='0 0 12px';const b=document.createElement('b');b.textContent=e+' '+n;const p=document.createElement('div');p.style.fontSize='14px';p.textContent=t;r.append(b,p);d.appendChild(r)});
+ chat.appendChild(d);down();
+ await bot("Tell me your situation and I'll match it to one of these. 😎",'fire');
+}
+async function share(txt){
+ const full=txt+" "+location.href;
+ try{if(navigator.share){await navigator.share({text:txt,url:location.href});return}}catch(e){}
+ try{await navigator.clipboard.writeText(full);bot("Copied! Paste it in your group chat and start the fight. 📋",'clap');return}catch(e){}
+ bot("Copy this and send it: "+full);
+}
+async function result(){
+ await bot("Calculating your meme DNA… 🧬 (it's mostly chiya)");
+ const ents=Object.keys(CH).map(k=>[k,score[k]||0]).sort((a,b)=>b[1]-a[1]);
+ const tot=ents.reduce((s,e)=>s+e[1],0)||1,top=CH[ents[0][0]];
+ const d=document.createElement('div');d.className='res';
+ d.innerHTML=`<div class="big"></div><h2></h2><p style="text-align:center;margin:6px 0 14px"></p>`;
+ d.querySelector('.big').textContent=top.e;d.querySelector('h2').textContent='You are '+top.n+'!';d.querySelector('p').textContent=top.d;
+ ents.forEach(([k,v])=>{const p=Math.round(v/tot*100);const r=document.createElement('div');r.innerHTML=`<div class="row"><span>${CH[k].e} ${CH[k].n}</span><b>${p}%</b></div><div class="bar"><i style="width:${p}%"></i></div>`;d.appendChild(r)});
+ chat.appendChild(d);down();
+ hist.push({role:"assistant",content:`The user just took the quiz and got ${top.n}. Breakdown: ${ents.map(e=>CH[e[0]].n+" "+Math.round(e[1]/tot*100)+"%").join(", ")}.`});
+ await bot("Screenshot and send to your group chat. Fight will start in 3… 2… 1… 🍿",'laugh');
+ opts([["📤 Share result",3],["🔁 Retake",1],["💬 Roast my result",2]],(t,v)=>{add(t,'me');if(v==3)share("I'm "+top.n+" "+top.e+" on MemeBaje! Which meme are you?");else v==1?quiz():send("Roast my quiz result, I got "+top.n)});
+}
+const clean=t=>t.replace(/\[\[GIF:[^\]]*\]?\]?/gi,'').replace(/\[\[[^\]]*$/,'').trim();
+async function send(t){
+ t=t.trim();if(!t||busy)return;
+ if(/^start the quiz$/i.test(t)){add(t,'me');return quiz()}
+ if(/latest memes/i.test(t)){add(t,'me');return trending()}
+ busy=true;inp.value='';add(t,'me');
+ hist.push({role:"user",content:t});
+ const d=typing();let out=null,key=null,cap=null;
+ if(sample){
+  try{
+   const turns=hist.slice(-10).map(h=>({...h}));
+   while(turns[0].role!=="user")turns.shift();
+   turns[0].content=sysFor()+"\n\nConversation:\n"+turns[0].content;
+   const r=await sample(turns,{cache:false,onText:({text})=>{d.classList.remove('dots');d.textContent=clean(text);down()}});
+   const m=r.text.match(/\[\[GIF:\s*([a-z]+)\s*\|\s*([^\]]*)\]\]/i);
+   if(m){key=m[1].toLowerCase();cap=m[2].trim()}
+   out=clean(r.text);
+   if(out){aiOK=true}
+  }catch(e){out=null}
+ }
+ d.classList.remove('dots');
+ if(!out){const L=NE?FALL_NE:FALL;out=L[Math.floor(Math.random()*L.length)]}
+ d.textContent=out;d.appendChild(gif(key,cap));
+ hist.push({role:"assistant",content:out});
+ busy=false;down();
+ if(aiOK&&!aiTimer){freshNews();aiTimer=setInterval(freshNews,240000)}
+}
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();send(inp.value)});
+document.getElementById('lang').onclick=function(){NE=!NE;this.textContent=NE?'English':'नेपाली';inp.placeholder=NE?'बाजेलाई केही भन्नुस्…':'Say something to Baje…';bot(NE?"ठीक छ सथी! अब देखि नेपालीमै गफ गर्छु। 🇳🇵":"Back to English, sathi! 🌍",NE?'tea':'cool')};
+
+/* ---- funny news ---- */
+let pool=[...NEWS].sort(()=>Math.random()-.5),shown=[],aiTimer=null;
+const clock=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+function renderNews(){
+ newsEl.innerHTML='';
+ shown.forEach(n=>{const d=document.createElement('div');d.className='n';const b=document.createElement('b');b.textContent=n.h;const s=document.createElement('small');s.textContent=(n.ai?'🤖 ':'📰 ')+n.t+' · Baje Times';d.append(b,s);newsEl.appendChild(d)});
+ document.getElementById('upd').textContent='Updated '+clock();
+}
+function pushNews(){
+ if(!pool.length)pool=[...NEWS].sort(()=>Math.random()-.5);
+ const n=pool.shift();shown.unshift(typeof n==='string'?{h:n,t:clock()}:{h:n.h,t:clock(),ai:true});
+ shown=shown.slice(0,6);renderNews();
+}
+async function freshNews(){
+ if(!sample)return;
+ try{
+  const r=await sample.json("Write 6 short, absurd satirical news headlines (max 14 words each) about everyday life in Nepal and South Asia: Kathmandu traffic, load-shedding, momo, chiya, cricket, group chats, exams, Nepali time, and current internet memes. Light, kind humor. No real people, politicians, religion, caste or ethnicity jokes. Return ONLY a JSON array of 6 strings.",{cache:false});
+  if(Array.isArray(r))pool.unshift(...r.filter(x=>typeof x==='string').map(h=>({h})));
+  pushNews();
+ }catch(e){}
+}
+for(let i=0;i<4;i++)pushNews();
+setInterval(pushNews,9000);
+document.getElementById('fresh').onclick=async()=>{if(sample&&!busy){await freshNews()}else pushNews()};
+document.getElementById('side').addEventListener('click',e=>{if(innerWidth<=860&&e.target.id!=='fresh')document.getElementById('side').classList.toggle('open')});
+
+start();
+(async()=>{try{if(window.claude){sample=await claude.use("sample")}}catch(e){sample=null}})();
+</script>
+</body>
+</html>
